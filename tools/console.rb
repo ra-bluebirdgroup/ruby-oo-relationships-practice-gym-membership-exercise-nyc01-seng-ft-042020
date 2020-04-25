@@ -1,9 +1,11 @@
-# You don't need to require any of the files in lib or pry.
-# We've done it for you here.
-require_relative '../config/environment.rb'
+require 'pry'
+require_relative '../config/enviroment.rb'
 
-# test code goes here
+#cost lifter gym
+gym1 = Gym.new("Planet Fitness")
+lifter1 = Lifter.new("Tashawn", 100)
+membership1 =  Memebership.new(100, lifter1, gym1)
 
 binding.pry
 
-puts "Gains!"
+puts "Gains"
