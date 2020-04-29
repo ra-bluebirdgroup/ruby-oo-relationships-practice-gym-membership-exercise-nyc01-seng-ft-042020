@@ -1,14 +1,15 @@
 require_relative '../config/environment.rb'
 
 class Gym
+  @@all = []
   attr_accessor :name
   def initialize(name)
     @name = name
-
+    Gym.all << self
   end
 
   def self.all
-    nil
+    @@all
   end
 
   def memberships
@@ -16,24 +17,15 @@ class Gym
   end
 
   def lifters
-    Membership.all.collect{ |membership| membership.gym == self ? membership.lifter : nil}.compact
+    self.memberships.map{ |membership| membership.lifter }
   end
 
   def combined_lift_total
-    Membership.all.collect{ |membership| membership.gym == self ? membership.lifter.lift_total : nil}.compact.sum
+    self.lifters.map{ |lifter| lifter.lift_total }.sum
   end
 
   def lifters_names
-    Membership.all.collect{ |membership| membership.gym == self ? membership.lifter.name : nil}.compact
+    self.lifters.map{ |lifter| lifter.name }
   end
-
-  def new_membership(lifter, cost)
-    Membership.new(lifter, self, cost)
-  end
-
-  def gyms
-    Membership.all.collect{ |membership| membership.gym}
-  end
-
 
 end
